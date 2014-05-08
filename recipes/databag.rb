@@ -51,8 +51,8 @@ rlist.each do |entry|
     item = data_bag_item('firewall', entry)
     rules = item['rules']
     unless rules.nil?
-      new_rules = node['firwall']['rules'].concat(rules).uniq
-      node.set['firewall']['rules'] = new_rules
+      old_rules = node['firewall']['rules'] || []
+      node.set['firewall']['rules'] = old_rules.concat(rules).uniq
     end
   end
 end
